@@ -53,14 +53,12 @@ export const generatorDynamicRouter = token => {
         const menuNav = []
         let adminNav = []
         for (let index = 0; index < res.data.length; index++) {
-          if (
-            res.data[index].path === '/system' ||
-            res.data[index].path === '/monitor' ||
-            res.data[index].path === '/tool'
-          ) {
+          const asyncRouterName = res.data[index].name
+          const adminRouterName = ['System', 'Monitor', 'Tool']
+          if (adminRouterName.indexOf(asyncRouterName) > -1) {
             adminNav = adminNav.concat(res.data[index])
           }
-          rootRouter.children = indexRouterMap.concat(adminNav)
+          rootRouter.children = asyncRouterMap.concat(adminNav)
         }
         menuNav.push(rootRouter)
         const routers = generator(menuNav)
